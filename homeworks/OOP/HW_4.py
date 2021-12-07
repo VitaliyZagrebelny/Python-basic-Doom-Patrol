@@ -4,11 +4,6 @@ class Vehicle:
         self.max_speed = max_speed
         self.mileage = mileage
 
-
-MyVehicle = Vehicle(200, 300)
-print(MyVehicle)
-
-
 # 2TASK
 class Bus(Vehicle):
     def __init__(self, max_speed, mileage, capacity):
@@ -19,13 +14,13 @@ class Bus(Vehicle):
         print(f"I need a bus numbered {self.capacity}")
 
 
-My_bus = Bus(25, 35, 44)
+my_bus = Bus(25, 35, 44)
 
 # 3TASK
-print(type(My_bus))
+print(type(my_bus))
 
 # 4TASK
-print(isinstance(My_bus, Vehicle))
+print(isinstance(my_bus, Vehicle))
 
 
 # 5TASK
@@ -36,16 +31,15 @@ class School:
 
 
 # 6TASK
-class School_Bus(School, Bus):
+class SchoolBus(School, Bus):
     def __init__(self, max_speed, mileage, capacity,
                  bus_school_color, get_school_id, number_of_students):
         School.__init__(self, get_school_id, number_of_students)
         Bus.__init__(self, max_speed, mileage, capacity)
         self.bus_school_color = bus_school_color
 
-
-MySchool_Bus = School_Bus(25, 35, 44, "Red", 22, 51)
-print(MySchool_Bus.bus_school_color)
+sch_bus = SchoolBus(25, 35, 44, "Red", 22, 51)
+print(sch_bus.bus_school_color)
 
 
 # 7TASK
