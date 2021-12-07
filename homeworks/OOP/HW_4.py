@@ -5,8 +5,8 @@ class Vehicle:
         self.mileage = mileage
 
 
-My_vehicle = Vehicle(200, 300)
-print(My_vehicle)
+MyVehicle = Vehicle(200, 300)
+print(MyVehicle)
 
 
 # 2TASK
@@ -29,22 +29,22 @@ print(isinstance(My_bus, Vehicle))
 
 
 # 5TASK
-class school:
+class School:
     def __init__(self, get_school_id, number_of_students):
         self.get_school_id = get_school_id
         self.number_of_students = number_of_students
 
 
 # 6TASK
-class School_Bus(school, Bus):
+class School_Bus(School, Bus):
     def __init__(self, max_speed, mileage, capacity, bus_school_color, get_school_id, number_of_students):
-        school.__init__(self, get_school_id, number_of_students)
+        School.__init__(self, get_school_id, number_of_students)
         Bus.__init__(self, max_speed, mileage, capacity)
         self.bus_school_color = bus_school_color
 
 
-MY_School_Bus = School_Bus(25, 35, 44, "Red", 22, 51)
-print(MY_School_Bus.bus_school_color)
+MySchool_Bus = School_Bus(25, 35, 44, "Red", 22, 51)
+print(MySchool_Bus.bus_school_color)
 
 
 # 7TASK
@@ -71,22 +71,25 @@ for animal in (animals1, animals2):
     (animal.make_sound())
 
 
-#8TASK
+# 8TASK
 
-class City:
-    def __init__(self, name, population):
-        self.name = name
-        self.population = population
-    def verify_population(self):
-        if self.population > 1500:
-            return self.population
-        else:
-            return ("Your city is small!")
-Kyiv = City("Kyiv", 4139598)
-Xarkov = City("Xarkov", 582478)
-Poltava =City("Poltava", 1234)
-
-cities = (Kyiv,Xarkov,Poltava)
-
-for i in cities:
-    print(i.verify_population())
+# class City:
+#     def __init__(self, name, population):
+#         self.name = name
+#         self.population = population
+#
+#     def verify_population(self):
+#         if self.population > 1500:
+#             return self.population
+#         else:
+#             return ("Your city is small!")
+#
+#
+# Kyiv = City("Kyiv", 4139598)
+# Xarkov = City("Xarkov", 582478)
+# Poltava = City("Poltava", 1234)
+#
+# cities = (Kyiv, Xarkov, Poltava)
+#
+# for i in cities:
+#     print(i.verify_population())
