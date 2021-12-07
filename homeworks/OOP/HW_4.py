@@ -37,7 +37,8 @@ class School:
 
 # 6TASK
 class School_Bus(School, Bus):
-    def __init__(self, max_speed, mileage, capacity, bus_school_color, get_school_id, number_of_students):
+    def __init__(self, max_speed, mileage, capacity,
+                 bus_school_color, get_school_id, number_of_students):
         School.__init__(self, get_school_id, number_of_students)
         Bus.__init__(self, max_speed, mileage, capacity)
         self.bus_school_color = bus_school_color
