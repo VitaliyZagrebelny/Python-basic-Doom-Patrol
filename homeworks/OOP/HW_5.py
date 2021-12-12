@@ -181,16 +181,14 @@ print(the_person.what_is_age)
 class Student:
     id = 1111
     name = "Vitaliy"
-    email = "zfdhhfhh@gmail.com"
 
-    def __init__(self, id, name, email):
+    def __init__(self, id, name):
         self.id = id
         self.name = name
-        self.email = email
 
 
-vitaliy = Student(1111, "Vitaliy", "zfdhhfhh@gmail.com")
-print(getattr(vitaliy, "email"))
+
+vitaliy = Student(1111, "Vitaliy")
 print(getattr(vitaliy, "name"))
 setattr(vitaliy, "Email", "new_email_zfdhhfhh@gmail.com")
 print(getattr(vitaliy, "Email"))
@@ -206,11 +204,6 @@ class Celsius:
     def temperature(self):
         return self._temperature
 
-    @temperature.setter
-    def temperature(self, new_temperature):
-        self._temperature = new_temperature
-
-
 fahrenheit = Celsius(45)
-fahrenheit.temperature = (fahrenheit.temperature * 1.8) + 32
+fahrenheit._temperature = (fahrenheit.temperature * 1.8) + 32
 print(fahrenheit.temperature)
