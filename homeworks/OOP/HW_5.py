@@ -179,13 +179,9 @@ print(the_person.what_is_age)
 
 # 10TASK
 class Student:
-    id = 1111
-    name = "Vitaliy"
-
     def __init__(self, id, name):
         self.id = id
         self.name = name
-
 
 
 vitaliy = Student(1111, "Vitaliy")
@@ -196,14 +192,15 @@ print(getattr(vitaliy, "Email"))
 
 # 11TASK
 
-class Celsius:
-    def __init__(self, temperature=0):
-        self._temperature = temperature
-
-    @property
-    def temperature(self):
-        return self._temperature
-
-fahrenheit = Celsius(45)
-fahrenheit._temperature = (fahrenheit.temperature * 1.8) + 32
-print(fahrenheit.temperature)
+# class Celsius:
+#     def __init__(self, temperature=0):
+#         self._temperature = temperature
+#
+#     @property
+#     def temperature(self):
+#         return self._temperature
+#
+#
+# fahrenheit = Celsius(45)
+# fahrenheit._temperature = (fahrenheit.temperature * 1.8) + 32
+# print(fahrenheit.temperature)
