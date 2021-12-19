@@ -1,12 +1,14 @@
+import time
 import random
+import uuid
 from abc import ABC, abstractmethod
 
 
-class Animal:
+class Animal(ABC):
     types = ("Herbivorous", "Predator")
 
     def __init__(self, power, speed):
-        self.id = None
+        self.id = uuid.uuid4()
         self.max_power = power
         self.current_power = power
         self.small_power = False
@@ -19,7 +21,7 @@ class Animal:
 
     def lose_power(self, power):
         self.current_power -= power
-        if self.current_power - power < 0:
+        if self.current_power - power <= 0:
             self.small_power = True
 
     @abstractmethod
@@ -32,14 +34,12 @@ class Animal:
 
 class Predator(Animal):  # Хижак
     def name(self):
-        predator = ["Fox", "Wolf", "Bear"]
-        return random.choice(predator)
+        return self.types[1]
 
 
 class Herbivorous(Animal):  # Травоїдний
     def name(self):
-        herbivorous = ["Bees", "Horses", "Koalas"]
-        return random.choice(herbivorous)
+        return self.types[0]
 
 
 class Forest:  # Ліс
@@ -52,7 +52,16 @@ class Forest:  # Ліс
     def remove_animal(self, animal):
         del self.animals[animal.id]
 
-    def animal_id(self, predator_id=None):
+    def animals_count(self):
+        return len(self.animals())
+
+    @property
+    def hunting_possible(self):
+        if self.animals_count() <= 1:
+            return False
+        return True
+
+    def get_animal(self, predator_id=None):
         if not isinstance(predator_id, type(None)):
             note_list = list(note for note in self.animals.keys()
                              if note != predator_id)
@@ -61,21 +70,39 @@ class Forest:  # Ліс
         animal_note = random.choice(note_list)
         return self.animals[animal_note]
 
-    def animals_count(self):
-        return len(self.animals())
-
-    def stop(self):
-        if self.animals_count() <= 1:
-            return False
-        return True
-
     @staticmethod
-    def animal_note(self):
+    def print_animal_note():
         for animal in forest.animals.keys():
             print(forest.animals[animal].animal_info())
 
-    @staticmethod
-    def animal_generator():
+    def any_predator_left(self):
+        for key in self.animals.keys():
+            if isinstance(self.animals[key], Predator):
+                return True
+            return False
+
+    def start_hunting(self):
+        predator = Forest.get_animal(self)
+        if isinstance(predator, Herbivorous):
+            predator.eat(50)
+        victim = Forest.get_animal(self, hunter_id)
+        if hunter.speed > victim.speed and hunter.current_power > victim.current_power:
+            hunter.eat(50)
+            victim.out_power = True
+        else:
+            hunter.lose_power(30)
+            victim.lose.power(30)
+        if hunter.out_power:
+            self.remove_animal(hunter)
+        if victim.lose_power:
+            self.remove_animal(victim)
+
+
+class AnimalGeneartor:
+    def __iter__(self):
+        return self
+
+    def __next__(self):
         animal_type = random.choice(Animal.types)
 
         if animal_type == "Predator":
@@ -87,21 +114,22 @@ class Forest:  # Ліс
 
         return new_animal
 
-    def any_predator_left(self):
-        for key in self.animals.keys():
-            if isinstance(self.animals[key], Predator):
-                return True
-
-        return False
-
 
 if __name__ == "__main__":
-    nature = animal_generator()
+    nature = AnimalGeneartor()
     forest = Forest()
     for i in range(8):
         animal = next(nature)
         forest.add_animal(animal)
-    while forest.any_predator_left():
-        for animal in forest:
-            animal.eat(forest=forest)
-            forest.number = 1
+    print("Who leaves in the forest?")
+    forest.print_animal_note()
+
+    print("Go hunting!")
+
+    time.sleep(5)
+
+    while forest.any_predator_left() and forest.hunting_possible:
+        forest.start_hunting()
+
+    print("Has anyone survived?")
+    forest.print_animal_note()
