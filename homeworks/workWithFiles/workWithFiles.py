@@ -4,29 +4,29 @@ while True:
 
     i = input("Знак (+,-,*,/): ")
     if i in ('+', '-', '*', '/'):
-        x = (float(input("x= ")))
-        y = (float(input("y= ")))
+        x = float(input("x= "))
+        y = float(input("y= "))
         if i == '+':
             c = x + y
-            print (str(c))
+            print(c)
             with open("result.txt", "w") as file:
-                file.write(c)
+                file.write(str(c))
         elif i == '-':
             c1 = x - y
-            print(str(c1))
+            print(c1)
             with open("result.txt", "w") as file:
-                file.write(c1)
+                file.write(str(c1))
         elif i == '*':
             c2 = x * y
-            print(str(c2))
+            print(c2)
             with open("result.txt", "w") as file:
-                file.write(c2)
+                file.write(str(c2))
         elif i == '/':
             if y != 0:
                 c3 = x / y
-                print(str(c3))
+                print(c3)
                 with open("result.txt", "w") as file:
-                    file.write(c3)
+                    file.write(str(c3))
             else:
                 print("Деление на ноль!")
     else:
