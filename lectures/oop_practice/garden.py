@@ -194,7 +194,6 @@ class Gardener:
 #         for plant in plants:
 #             if
 
-
 apple_tree = AppleTree(3)
 tomato_bush = TomatoBush(4)
 print(tomato_bush.all_tomatoes)
