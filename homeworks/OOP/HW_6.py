@@ -29,7 +29,7 @@ class Animal(ABC):
         pass
 
     def animal_info(self):
-        return self.name() + str(self.id)
+        return self.name() + '  ' + str(self.id)
 
 
 class Predator(Animal):  # Хижак
@@ -53,7 +53,7 @@ class Forest:  # Ліс
         del self.animals[animal.id]
 
     def animals_count(self):
-        return len(self.animals())
+        return len(self.animals)
 
     @property
     def hunting_possible(self):
@@ -85,16 +85,17 @@ class Forest:  # Ліс
         predator = Forest.get_animal(self)
         if isinstance(predator, Herbivorous):
             predator.eat(50)
-        victim = Forest.get_animal(self, hunter_id)
-        if hunter.speed > victim.speed and hunter.current_power > victim.current_power:
-            hunter.eat(50)
-            victim.out_power = True
+        victim = Forest.get_animal(self, predator.id)
+        if predator.speed > victim.speed and \
+                predator.current_power > victim.current_power:
+            predator.eat(50)
+            victim.small_power = True
         else:
-            hunter.lose_power(30)
-            victim.lose.power(30)
-        if hunter.out_power:
-            self.remove_animal(hunter)
-        if victim.lose_power:
+            predator.lose_power(30)
+            victim.lose_power(30)
+        if predator.small_power:
+            self.remove_animal(predator)
+        if victim.small_power:
             self.remove_animal(victim)
 
 
@@ -126,7 +127,7 @@ if __name__ == "__main__":
 
     print("Go hunting!")
 
-    time.sleep(5)
+    time.sleep(3)
 
     while forest.any_predator_left() and forest.hunting_possible:
         forest.start_hunting()
