@@ -2,10 +2,10 @@ a = str(input(" "))  # value 1
 b = str(input(" "))  # Sign
 c = str(input(" "))  # value 2
 p = a + b + c
-k=eval(p)
+k = eval(p)
 with open("result.txt", "w") as file:
-    file.write(str(k))
-print(k)
+    file.write(f'{a} {b} {c} = {k}')
+
 # print("Calculator!")
 #
 # while True:
