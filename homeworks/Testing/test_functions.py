@@ -20,6 +20,10 @@ class FunctionsTest(unittest.TestCase):
 
     # HW
     def test_div(self):
-        self.assertNotEqual(fft.div(20, 10), 4)
-        self.assertNotEqual(fft.div(100, 2), 5)
-        self.assertNotEqual(fft.div(5000, 2500), 6)
+        try:
+            fft.div(20, 0)
+        except ZeroDivisionError:
+            self.assertEqual(0, 0)
+        self.assertEqual(fft.div(20, 10), 2)
+        self.assertEqual(fft.div(100, 2), 50)
+        self.assertNotEqual(fft.div(5000, 250), 6)
