@@ -14,6 +14,7 @@ TEST_DATABASE_DIRECTORY = 'test_database'
 TEST_FILE = 'test.json'
 TEST_FILE_PATH = TEST_DATABASE_DIRECTORY + "/" + TEST_FILE
 TEST_INPUT = "hello"
+#TEST_ID = "id"
 
 
 class TestUserFunctions(unittest.TestCase):
