@@ -88,7 +88,7 @@ class TomatoBush:
 
     def eaten_by_pests(self):
         self.all_tomatoes = []
-        print("Unfortunately all tomatoes have been eaten by pests")
+        print("Unfortunately all tomatoes have been eaten by pests!")
 
 
 class Apple(Fruits):
