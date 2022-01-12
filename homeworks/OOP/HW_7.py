@@ -66,29 +66,31 @@ class Tomato(Vegetables):
     def grow_info(self):
         print(f'{self.vegetable_type} - {self.tomatoes_index}: {stages[self.state]}')
 
+    def get_state(self):
+        return self.state
+
 
 class TomatoBush:
-    def __init__(self, number_of_tomatos, number_of_pests):
-        self.all_tomatoes = [Tomato('Cherry', index) for index in range(number_of_tomatos)]
-        self.all_pests = [Pests(index, 'Veggies', self.all_tomatoes)
-                          for index in range(number_of_pests)]
+    def __init__(self, number_of_tomatoes, number_of_pests):
+        self.number_of_tomatoes = [Tomato('Cherry', index) for index in range(number_of_tomatoes)]
+        self.number_of_pests = [Pests(index, 'Veggies', self.number_of_tomatoes)
+                                for index in range(number_of_pests)]
 
     def grow_all(self):
-        for tomato in self.all_tomatoes:
+        for tomato in self.number_of_tomatoes:
             tomato.grow()
 
     def is_ripe_all(self):  # чи всі спілі
-        return all([tomato.is_ripe() for tomato in self.all_tomatoes])
+        return all([tomato.is_ripe() for tomato in self.number_of_tomatoes])
 
     def harvest(self):  # збір урожаю
-        self.all_tomatoes = []
+        self.number_of_tomatoes = []
 
     def is_ripe_for_pests(self):
-        return any([tomato.get_state() > 1 for tomato in self.all_tomatoes])
+        return any([tomato.get_state() > 1 for tomato in self.number_of_tomatoes])
 
     def eaten_by_pests(self):
-        self.all_tomatoes = []
-        print("Unfortunately all tomatoes have been eaten by pests!")
+        self.number_of_tomatoes = []
 
 
 class Apple(Fruits):
@@ -108,41 +110,46 @@ class Apple(Fruits):
     def grow_info(self):
         print(f'{self.fruit_type} - {self.apple_index}: {stages[self.state]}')
 
+    def get_state(self):
+        return self.state
+
 
 class AppleTree:
-    def __init__(self, number_of_apple, number_of_pests):
-        self.all_apples = [Apple('White', index) for index in range(number_of_apple)]
-        self.all_pests = [Pests(index, 'Fruits', self.all_apples)
-                          for index in range(number_of_pests)]
+    def __init__(self, number_of_apples, number_of_pests):
+        self.number_of_apples = [Apple('White', index) for index in range(number_of_apples)]
+        self.number_of_pests = [Pests(index, 'Worm', self.number_of_apples)
+                                for index in range(number_of_pests)]
 
     def grow_all(self):
-        for apple in self.all_apples:
+        for apple in self.number_of_apples:
             apple.grow()
 
     def is_ripe_all(self):
-        return all([apple.is_ripe() for apple in self.all_apples])
+        return all([apple.is_ripe() for apple in self.number_of_apples])
 
     def harvest(self):
-        self.all_apples = []
+        self.number_of_apples = []
 
     def is_ripe_for_pests(self):
-        return any([apple.get_state() > 1 for apple in self.all_apples])
+        return any([apple.get_state() > 1 for apple in self.number_of_apples])
 
     def eaten_by_pests(self):
-        self.all_apples = []
-        print("Unfortunately all apples have been eaten by pests")
+        self.number_of_apples = []
 
 
 class Gardener:
-    savent_tree = {'Fruits': False, 'Vegetables': False}
+    savent_tree = {'Bug': False, 'Worm': False}
 
     def __init__(self, name, plants_list, pests_list):
         self.name = name
         self.plants_list = plants_list
         self.pests_list = pests_list
 
+    def number_of_it(self):
+        self.plants_list = []
+
     def take_care(self):  # доглядає
-        print("watering the plants")
+        print("Watering the plants")
         for plant in self.plants_list:  # щоб росли
             plant.grow_all()
 
@@ -150,17 +157,18 @@ class Gardener:
         plants_to_harvest = []
         plants_to_harvest += ([plant for plant in self.plants_list
                                if isinstance(plant, AppleTree)
-                               and self.savent_tree['Fruits']])
+                               and self.savent_tree['Bug']])
 
         plants_to_harvest += ([plant for plant in self.plants_list
                                if isinstance(plant, TomatoBush)
-                               and self.savent_tree['Vegetables']])
+                               and self.savent_tree['Worm']])
 
         plants_to_be_eaten = [plant for plant in self.plants_list
                               if plant not in plants_to_harvest]
         for plant in plants_to_be_eaten:
             plant.eaten_by_pests()
-        for plant in plants_to_harvest:
+
+        for plant in self.plants_list:
             if plant.is_ripe_all:
                 print("Harvestung...")
                 plant.harvest()
@@ -169,10 +177,10 @@ class Gardener:
 
     def pests(self, pests_type):
         for i in range(len(self.pests_list)):
-            for j in range(len(self.pests_list[1])):
+            for j in range(len(self.pests_list[i])):
                 if self.pests_list[i][j].pest_type == pests_type:
                     self.pests_list[i][j].time_die()
-                    self.pests_list[i][j] = ""
+                    self.pests_list[i][j] = False
                     self.savent_tree[pests_type] = True
         for i in self.savent_tree.keys():
             if self.savent_tree[i]:
@@ -186,25 +194,32 @@ class Pests:
         self.plants_list = plants_list
 
     def eat_plants(self):
-        for plant in self.plants:
-            if plant.is_ripe_pests():
+        for plant in self.plants_list:
+            if plant.is_ripe_for_pests():
                 plant.harvest()
+                print("Eat plant!")
+            else:
+                print("Nothing eat!")
 
     def time_die(self):
         del self
 
+    def __del__(self):
+        pass
 
-apple_tree = AppleTree(2, 4)
-tomato_bush = TomatoBush(4, 2)
-print(tomato_bush.all_tomatoes)
-print(apple_tree.all_apples)
+
+apple_tree = AppleTree(3, 2)
+tomato_bush = TomatoBush(3, 2)
+print(tomato_bush.number_of_tomatoes)
+print(apple_tree.number_of_apples)
 
 gardener = Gardener("Homer", [apple_tree, tomato_bush],
-                    [apple_tree.all_pests, tomato_bush.all_pests])
-for _ in range(3):
-    gardener.take_care()
-
-gardener.pests("Fruits")
+                    [apple_tree.number_of_pests, tomato_bush.number_of_pests])
+pest = Pests("Worm", 2, [apple_tree])
+gardener.take_care()
+pest.eat_plants()
+gardener.take_care()
+pest.eat_plants()
+gardener.pests("Worm")
+gardener.take_care()
 gardener.harvest()
-print(tomato_bush.all_tomatoes)
-print(apple_tree.all_apples)
