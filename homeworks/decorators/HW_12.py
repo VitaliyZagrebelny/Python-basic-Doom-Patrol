@@ -24,6 +24,7 @@ def add_task_one(a, b):
 print(add_task_one(5, 5))
 
 
+
 # Task #2
 def only_odd_parameters(func):
     def inner(*args):
