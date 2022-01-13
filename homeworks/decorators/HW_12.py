@@ -62,11 +62,11 @@ print(multiply(2, 5, 3, 3, 2))
 # Task #4
 def type_check(correct_type):
     def type_decorator(func):
-        def inner(*args):
-            if type(*args) == correct_type:
-                return func(*args)
+        def inner(num):
+            if type(num) == correct_type:
+                return func(num)
             else:
-                return f"Wrong Type: {type(*args)}"
+                return f"Wrong Type: {type(num)}"
 
         return inner
 
