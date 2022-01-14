@@ -24,7 +24,6 @@ def add_task_one(a, b):
 print(add_task_one(5, 5))
 
 
-
 # Task #2
 def only_odd_parameters(func):
     def inner(*args):
@@ -57,6 +56,20 @@ print(multiply(2, 5, 3, 3, 2))
 
 
 # Task #3
+def logged(func):
+    def inner(*args):
+        result = func(*args)
+        return result
+
+    return inner
+
+
+@logged
+def func(*args):
+    return 3 + len(args)
+
+
+print(func(4, 4, 4))
 
 
 # Task #4
@@ -89,4 +102,3 @@ def first_letter(word):
 
 print(first_letter('Hello World'))
 print(first_letter(['Not', 'A', 'String']))
-
