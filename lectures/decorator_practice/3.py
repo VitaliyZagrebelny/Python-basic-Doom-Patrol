@@ -7,7 +7,7 @@ class WrongFactorialNumber(Exception):
         return f'{self.num} {self.message}'
 
 
-def number_verification(func):
+def number_verification(func): # для перевірки значення функції
     def inner(num):
         if isinstance(num, int) and num > 0:
             return func(num)
