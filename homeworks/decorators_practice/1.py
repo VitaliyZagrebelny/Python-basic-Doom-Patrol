@@ -27,7 +27,6 @@ class Person:
         return self.tag
 
 
-# HW
 class Fare():
     def __init__(self, func):
         self.func = func
@@ -45,7 +44,7 @@ class Fare():
         else:
             raise BridgeNoMoney(person.name)  # якщо не вистачає гроші на карту і на проїзд
 
-        return funс(person)
+        return self.func(person)
 
 
 @Fare
