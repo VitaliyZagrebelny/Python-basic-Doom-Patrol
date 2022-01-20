@@ -2,9 +2,9 @@ import time
 from datetime import datetime
 
 
-# homework use Class instead of function and without passing args to decorator
-
+# HW
 class Logger:
+
     def __init__(self, logfile='out.log'):
         self.logfile = logfile
 
