@@ -22,5 +22,4 @@ def my_func():
     """
     print(f"{my_func().__name__} is running")
 
-
-log = Logger()
+Logger()
