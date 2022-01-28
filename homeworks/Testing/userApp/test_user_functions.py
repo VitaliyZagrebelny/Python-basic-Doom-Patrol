@@ -14,7 +14,7 @@ TEST_DATABASE_DIRECTORY = 'test_database'
 TEST_FILE = 'test.json'
 TEST_FILE_PATH = TEST_DATABASE_DIRECTORY + "/" + TEST_FILE
 TEST_INPUT = "hello"
-#TEST_ID = "id"
+TEST_ID = 1
 
 
 class TestUserFunctions(unittest.TestCase):
@@ -50,7 +50,21 @@ class TestUserFunctions(unittest.TestCase):
         self.assertEqual(data[0]['id'], 1)
         shutil.rmtree(TEST_DATABASE_DIRECTORY)
 
-    def test_update_user(self):
-        file = open(Config.PATH_TO_USERS_FILE, 'r')
-        self.assertTrue(update_user(TEST_ID))
+    @patch('user_functions.input')
+    def test_update_user(self, input_mock):
+        file = create_file()
         file.close()
+        with open(Config.PATH_TO_USERS_FILE, 'w') as file:
+            file.write(json.dumps(TEST_ALL_USERS_DATA))
+        input_mock.return_value = TEST_ID
+        update_user()
+
+        # HW
+
+        file = open(Config.PATH_TO_USERS_FILE, 'r')
+        data = json.loads(file.read())
+        self.assertEqual(data[0]['first_name'], TEST_ID)
+        self.assertEqual(data[0]['last_name'], TEST_ID)
+        self.assertEqual(data[0]['Email'], TEST_ID)
+        file.close()
+        shutil.rmtree(TEST_DATABASE_DIRECTORY)

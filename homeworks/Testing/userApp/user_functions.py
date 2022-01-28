@@ -72,10 +72,13 @@ def search_by(search_str, what_to_search):
 
 
 def update_user():
-    file = open(Config.PATH_TO_USERS_FILE, 'r')
+    try:
+        file = open(Config.PATH_TO_USERS_FILE, 'r')
+    except FileNotFoundError:
+        logging.critical("File Not Found in update function!!!")
+        file = create_file()
     users = json.loads(file.read())
     file.close()
-
     id = int(input("Type id of user which you want to update: "))
     if id > 0:
         first_name = input("First Name: ")
