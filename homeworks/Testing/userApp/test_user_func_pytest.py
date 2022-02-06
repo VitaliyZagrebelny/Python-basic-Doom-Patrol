@@ -1,4 +1,3 @@
-import pytest
 import os
 import shutil
 import json
@@ -24,16 +23,16 @@ Config.PATH_TO_USERS_FILE = TEST_FILE_PATH
 
 
 def test_check_email():
-    assert check_email(TEST_EMAIL, TEST_ALL_USERS_DATA) == True
-    assert check_email(TEST_FALSE_EMAIL, TEST_ALL_USERS_DATA) == False
+    assert check_email(TEST_EMAIL, TEST_ALL_USERS_DATA) is True
+    assert check_email(TEST_FALSE_EMAIL, TEST_ALL_USERS_DATA) is False
 
 
 def test_create_file():
     file = create_file()
-    assert os.path.exists(TEST_DATABASE_DIRECTORY) == True
-    assert os.path.exists(Config.PATH_TO_USERS_FILE) == True
+    assert os.path.exists(TEST_DATABASE_DIRECTORY) is True
+    assert os.path.exists(Config.PATH_TO_USERS_FILE) is True
     data = json.loads(file.read())
-    assert type(data) == list
+    isinstance(data, list)
     file.close()
     shutil.rmtree(TEST_DATABASE_DIRECTORY)
 
@@ -44,7 +43,7 @@ def test_user_add(monkeypatch):
     file = open(Config.PATH_TO_USERS_FILE, 'r')
     data = json.loads(file.read())
     file.close()
-    assert (len(data) > 0) == True
+    assert (len(data) > 0) is True
     assert data[0]['first_name'] == TEST_INPUT
     assert data[0]['id'] == 1
     shutil.rmtree(TEST_DATABASE_DIRECTORY)

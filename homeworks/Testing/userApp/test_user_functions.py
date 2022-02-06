@@ -34,7 +34,7 @@ class TestUserFunctions(unittest.TestCase):
         self.assertTrue(os.path.exists(TEST_DATABASE_DIRECTORY))
         self.assertTrue(os.path.exists(Config.PATH_TO_USERS_FILE))
         data = json.loads(file.read())
-        self.assertTrue(type(data) is list)
+        self.assertIsInstance(data, list)
         file.close()
         shutil.rmtree(TEST_DATABASE_DIRECTORY)
 
