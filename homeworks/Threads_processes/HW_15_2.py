@@ -1,5 +1,5 @@
 import math
-import threading
+from multiprocessing import Process
 
 
 def calculation(a, b, c):
@@ -15,7 +15,10 @@ def calculation(a, b, c):
         print("Not solution!")
 
 
-t1 = threading.Thread(target=calculation(6, 11, -35))
-t2 = threading.Thread(target=calculation(5, - 2, -9))
-t1.start()
-t2.start()
+if __name__ == '__main__':
+    t1 = Process(target=calculation(6, 11, -35))
+    t2 = Process(target=calculation(5, - 2, -9))
+    t1.start()
+    t2.start()
+    t1.join()
+    t2.join()
